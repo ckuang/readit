@@ -2,7 +2,8 @@
 
 module.exports = function(sequelize, DataTypes){
 	const Vote = sequelize.define("Vote",{
-		vote: DataTypes.INTEGER
+		vote: DataTypes.INTEGER,
+		PostId: DataTypes.INTEGER
 	},
 		{
 			classMethods: {
