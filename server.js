@@ -25,7 +25,7 @@ app.get('/api/post',(req,res)=>{
 	}).catch((error)=>{
 		res.send(error)
 	})
-}) 
+})
 app.get('/api/comment',(req,res)=>{
 	Comment.findAll()
 	.then((data)=>{
@@ -43,7 +43,74 @@ app.get('/api/vote',(req,res)=>{
 	}).catch((error)=>{
 		res.send(error)
 	})
-}) 
+})
+app.post('/api/post', (req, res) => {
+  Post.create({
+    title: req.body.title,
+    body: req.body.body})
+    .then((data) => {
+      res.send(data);
+    }).catch((error) => {
+      res.send(error)
+    })
+  })
+  app.post('/api/comment', (req, res) => {
+    Comment.create({
+      comment: req.body.comment,
+      PostId: req.body.id
+    }).then((data) => {
+      res.send(200)
+    }).catch((error) => {
+      res.send(error)
+    })
+  })
+  app.post('/api/vote', (req, res) => {
+    Vote.create({
+      vote: req.body.vote,
+      PostId: req.body.id
+    })
+    .then((data) => {
+      res.send(200)
+    }).catch((error) => {
+      res.send(error)
+    })
+  })
+  app.delete('/api/post/:id', (req, res) => {
+    Post.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then((data) => {
+      res.send(200)
+    }).catch((error) => {
+      res.send(error)
+    })
+  })
+  app.delete('/api/comment/:id', (req, res) => {
+    Comment.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then((data) => {
+      res.send(200)
+    }).catch((error) => {
+      res.send(error)
+    })
+  })
+  app.delete('/api/vote/:id', (req, res) => {
+    Vote.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then((data) => {
+      res.send(200)
+    }).catch((error) => {
+      res.send(error)
+    })
+  })
 
 
 app.get('/*',(req, res)=>{
