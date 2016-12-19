@@ -2,26 +2,21 @@ var express = require('express')
 var app = express()
 var bodyparser = require('body-parser')
 var path = require('path')
-var db = require('./models') 
+// var apiRouter = require('./routes/api.js')
+var db = require('./models')
 
 const Post = require('./models/index.js').Post
 const Comment = require('./models/index.js').Comment
 const Vote = require('./models/index.js').Vote
+
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json())
 app.use(express.static('public'))
 
 
-app.get('/api/post',(req,res)=>{
-	Post.findAll()
-	.then((data)=>{
-		console.log(data, 'We got all the post')
-		res.send(data);
-	}).catch((error)=>{
-		res.send(error)
-	})
-}) 
+// app.use(apiRouter)
+
 app.get('/api/post',(req,res)=>{
 	Post.findAll()
 	.then((data)=>{
