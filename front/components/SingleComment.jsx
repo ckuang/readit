@@ -31,5 +31,5 @@ componentDidMount(){
 		)
 	}
 })
-
+//
 export default OneComment;

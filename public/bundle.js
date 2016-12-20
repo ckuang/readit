@@ -74,6 +74,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//
 	// components
 	var App = _react2.default.createClass({
 	  displayName: 'App',
@@ -36776,6 +36777,7 @@
 			);
 		}
 	});
+	//
 	
 	exports.default = Comments;
 
@@ -36855,7 +36857,7 @@
 			);
 		}
 	});
-	
+	//
 	exports.default = CommentForm;
 
 /***/ },
@@ -36924,7 +36926,7 @@
 			);
 		}
 	});
-	
+	//
 	exports.default = OneComment;
 
 /***/ }

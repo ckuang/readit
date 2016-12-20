@@ -34,6 +34,7 @@ componentDidMount(){
 		)
 	}
 })
+//
 
 export default Comments;
 
