@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Route, Router, Link, browserHistory, IndexRoute} from 'react-router';
 
+
 //
 // components
 import Posts from './components/Posts';
