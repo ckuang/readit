@@ -74,8 +74,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//
 	// components
+	//
 	var App = _react2.default.createClass({
 	  displayName: 'App',
 	
@@ -36727,7 +36727,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// import commentForm from './CommentForm.jsx';
-	
+	//
 	var Comments = _react2.default.createClass({
 		displayName: 'Comments',
 		getInitialState: function getInitialState() {
@@ -36803,6 +36803,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//
 	var CommentForm = _react2.default.createClass({
 		displayName: 'CommentForm',
 		getInitialState: function getInitialState() {
@@ -36884,6 +36885,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//
 	var OneComment = _react2.default.createClass({
 		displayName: 'OneComment',
 		getInitialState: function getInitialState() {

@@ -3,6 +3,7 @@
 import React from 'react';
 import $ from 'jquery';
 
+//
 const CommentForm = React.createClass({
 
 getInitialState(){

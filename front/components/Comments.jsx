@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 // import commentForm from './CommentForm.jsx';
-
+//
 const Comments  = React.createClass({
 getInitialState(){
 	return({comments: []})
