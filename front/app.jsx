@@ -1,33 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Route,Router,browserHistory,IndexRoute} from 'react-router'
+import {Route, Router, Link, browserHistory, IndexRoute} from 'react-router';
 
-//This is where we are importing the components 
-import Comments from './components/Comments.jsx';
-
+// components
+import Posts from './components/Posts';
+import Comments from './components/Comments';
+import CommentForm from './components/CommentForm';
+import OneComment from './components/SingleComment';
 
 const App = React.createClass({
-	render(){
-		return(
-		<div>
-		<center>
-		<h1> Welcome home </h1>
-		</center>
-			{this.props.children}
-
-		</div>
-
-		)
-	}
+    render: function() {
+      return (
+        <div>
+          <center>Home</center>
+          {this.props.children}
+        </div>
+      )
+    }
 })
 
 ReactDOM.render(
-<Router history={browserHistory}>
-	<Route path="/" component={App}>
-	<IndexRoute component={Comments}/>
-	</Route>
-</Router>,
-document.getElementById('root')
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      <IndexRoute component={Posts} />
+      <Route path="comments" component={Comments}/>
+      <Route path="commentsform" component={CommentForm}/>
+      <Route path="singlecomment" component={OneComment}/>
+    </Route>
+  </Router>,
+  document.getElementById('root')
 )
 
-	// <Route path="comments" component={Comments}/>

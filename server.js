@@ -17,6 +17,7 @@ app.use(express.static('public'))
 
 // app.use(apiRouter)
 
+//GET REQUEST
 app.get('/api/post',(req,res)=>{
 	Post.findAll()
 	.then((data)=>{
@@ -35,6 +36,18 @@ app.get('/api/comment',(req,res)=>{
 		res.send(error)
 	})
 })
+
+app.get('/api/comment/:id', (req,res)=>{
+	Comment.findById(req.params.id)
+	.then((data)=>{
+		console.log(data, 'found this comment ID!')
+		res.send(data);
+	})
+	.catch((error)=>{
+		console.log(error, 'Error!')
+	})
+})
+
 app.get('/api/vote',(req,res)=>{
 	Vote.findAll()
 	.then((data)=>{
@@ -44,6 +57,9 @@ app.get('/api/vote',(req,res)=>{
 		res.send(error)
 	})
 })
+
+
+//POST REQUEST
 app.post('/api/post', (req, res) => {
   Post.create({
     title: req.body.title,
@@ -54,16 +70,20 @@ app.post('/api/post', (req, res) => {
       res.send(error)
     })
   })
+
   app.post('/api/comment', (req, res) => {
+  	console.log(req.body);
     Comment.create({
       comment: req.body.comment,
       PostId: req.body.id
     }).then((data) => {
-      res.send(200)
+    	console.log(data, 'we made a comment!')
+      res.send(data)
     }).catch((error) => {
       res.send(error)
     })
   })
+
   app.post('/api/vote', (req, res) => {
     Vote.create({
       vote: req.body.vote,
@@ -75,6 +95,9 @@ app.post('/api/post', (req, res) => {
       res.send(error)
     })
   })
+
+
+  //DELETE REQUEST
   app.delete('/api/post/:id', (req, res) => {
     Post.destroy({
       where: {
@@ -111,6 +134,8 @@ app.post('/api/post', (req, res) => {
       res.send(error)
     })
   })
+
+
 
 
 app.get('/*',(req, res)=>{
