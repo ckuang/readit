@@ -4,28 +4,29 @@ import $ from 'jquery';
 //
 const OneComment = React.createClass({
 getInitialState(){
-	return({one: []})
+	return({comment: []})
 },
 componentDidMount(){
 	$.ajax({
-		url: '/api/comment/',
+		url: '/api/comment',
 		type: 'GET',
 		success: ((data)=>{
-			console.log(data[0].comment, 'this is the data');
-			console.log(data[1].comment, 'this is the data again')
-			data ? this.setState({one:data}) : console.log('Error with comment objects')
+			data ? this.setState({comment:data}) : console.log('Error with comment objects')
+			console.log(data,'this is the data')
 		})
 	})
 },
 	render(){
-	let SingleDisplay = this.state.one.indexOf((item, index)=>{
-		return <li key={index}><h1>{item[0].comment}</h1></li>
-	})
+		let SingleComment = this.state.comment.map((value,index)=>{
+			return <li key={index}><h1>{value.comment}</h1></li>
+		})
+
+		console.log(SingleComment, 'what is this?')
 		return (
 		<div>
 			<center>
 			<h1>Single Comments:</h1>
-			{SingleDisplay}
+			{SingleComment}
 			</center>
 		</div>
 		)
