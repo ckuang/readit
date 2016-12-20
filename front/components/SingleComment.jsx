@@ -32,4 +32,5 @@ componentDidMount(){
 	}
 })
 //
+//
 export default OneComment;

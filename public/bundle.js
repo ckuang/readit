@@ -74,6 +74,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//
 	// components
 	var App = _react2.default.createClass({
 	  displayName: 'App',
@@ -36776,6 +36777,8 @@
 			);
 		}
 	});
+	//
+	//
 	
 	exports.default = Comments;
 
@@ -36855,7 +36858,8 @@
 			);
 		}
 	});
-	
+	//
+	//
 	exports.default = CommentForm;
 
 /***/ },
@@ -36891,12 +36895,13 @@
 				type: 'GET',
 				success: function success(data) {
 					console.log(data[0].comment, 'this is the data');
+					console.log(data[1].comment, 'this is the data again');
 					data ? _this.setState({ one: data }) : console.log('Error with comment objects');
 				}
 			});
 		},
 		render: function render() {
-			var SingleDisplay = this.state.one.find(function (item, index) {
+			var SingleDisplay = this.state.one.indexOf(function (item, index) {
 				return _react2.default.createElement(
 					'li',
 					{ key: index },
@@ -36916,14 +36921,15 @@
 					_react2.default.createElement(
 						'h1',
 						null,
-						' Single Comments:'
+						'Single Comments:'
 					),
 					SingleDisplay
 				)
 			);
 		}
 	});
-	
+	//
+	//
 	exports.default = OneComment;
 
 /***/ }
