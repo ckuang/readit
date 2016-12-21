@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router';
+import Comments from './Comments.jsx';
 
 import Vote from './VoteButtons';
 
@@ -21,6 +22,7 @@ componentDidMount(){
 	render(){
 		if(!this.state.post){
 			return (<div>Loading..</div>)
+
 		}
 		else {
 			return (<div>
@@ -29,7 +31,9 @@ componentDidMount(){
 									<p>{this.state.post.body}</p>
 								</center>
 								<Vote />
+								<Comments/>
 							</div>)
+
 		}
 	}
 })

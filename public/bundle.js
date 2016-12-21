@@ -64,19 +64,19 @@
 	
 	var _Comments2 = _interopRequireDefault(_Comments);
 	
-	var _CommentForm = __webpack_require__(236);
+	var _CommentForm = __webpack_require__(237);
 	
 	var _CommentForm2 = _interopRequireDefault(_CommentForm);
 	
-	var _SingleComment = __webpack_require__(237);
+	var _SingleComment = __webpack_require__(236);
 	
 	var _SingleComment2 = _interopRequireDefault(_SingleComment);
 	
-	var _PostForm = __webpack_require__(238);
+	var _PostForm = __webpack_require__(240);
 	
 	var _PostForm2 = _interopRequireDefault(_PostForm);
 	
-	var _SinglePost = __webpack_require__(239);
+	var _SinglePost = __webpack_require__(238);
 	
 	var _SinglePost2 = _interopRequireDefault(_SinglePost);
 	
@@ -26477,6 +26477,7 @@
 	  },
 	
 	  render: function render() {
+	    console.log(this.state.allPosts, 'what is this?');
 	    var PostDisplay = this.state.allPosts.map(function (value, index) {
 	      return _react2.default.createElement(
 	        _reactRouter.Link,
@@ -36755,10 +36756,12 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	var _SingleComment = __webpack_require__(236);
+	
+	var _SingleComment2 = _interopRequireDefault(_SingleComment);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import commentForm from './CommentForm.jsx';
-	//
 	var Comments = _react2.default.createClass({
 		displayName: 'Comments',
 		getInitialState: function getInitialState() {
@@ -36771,26 +36774,14 @@
 				url: '/api/comment',
 				type: 'GET',
 				success: function success(data) {
+					console.log(data[0].PostId, 'postId');
 					data ? _this.setState({ comments: data }) : console.log('Error with comment objects');
 				}
 			});
 		},
 		render: function render() {
-			var CommentDisplay = this.state.comments.map(function (value, index) {
-				return _react2.default.createElement(
-					Link,
-					{ key: index, to: '/singlecomment/' + value.id },
-					_react2.default.createElement(
-						'li',
-						{ key: index },
-						_react2.default.createElement(
-							'h1',
-							{ key: index },
-							value.comment
-						)
-					)
-				);
-			});
+			console.log(this.state.comments, 'what is this?');
+	
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -36802,7 +36793,10 @@
 						null,
 						'ALL COMMENTS:'
 					),
-					CommentDisplay
+					this.state.comments.map(function (value, index) {
+						console.log(value.PostId, 'value post id');
+						return _react2.default.createElement(_SingleComment2.default, { comments: value, key: index });
+					})
 				)
 			);
 		}
@@ -36832,10 +36826,65 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var SingleComment = _react2.default.createClass({
+		displayName: 'SingleComment',
+	
+		// getInitialState(){
+		// 	return({comment:null})
+		// },
+		// componentDidMount(){
+		// 	$.ajax({
+		// 		url: '/api/comment/' + this.props.params.id,
+		// 		type: 'GET',
+		// 		success: ((data)=>{
+		// 			this.setState({comment:data})
+		// 			console.log('this is data',data)
+		// 		})
+		// 	})
+		// },
+		render: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				this.props.comments.comment
+			);
+			// 	if(!this.state.comment){
+			// 		return (<div>Loading..</div>)
+			// 	}else{
+			// 		return(<div><center>{this.state.comment}</center></div>)
+			// 	}
+		}
+	});
+	exports.default = SingleComment;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _jquery = __webpack_require__(234);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _SinglePost = __webpack_require__(238);
+	
+	var _SinglePost2 = _interopRequireDefault(_SinglePost);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var CommentForm = _react2.default.createClass({
 		displayName: 'CommentForm',
 		getInitialState: function getInitialState() {
-			return { comment: '', postID: null };
+			return { comment: '', PostId: this.props.PostId };
 		},
 		commentChange: function commentChange(e) {
 			return this.setState({ comment: e.target.value });
@@ -36848,6 +36897,7 @@
 			});
 		},
 		render: function render() {
+			console.log(this.state.comment, ':comment');
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -36875,7 +36925,7 @@
 	exports.default = CommentForm;
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36894,27 +36944,35 @@
 	
 	var _reactRouter = __webpack_require__(178);
 	
+	var _Comments = __webpack_require__(235);
+	
+	var _Comments2 = _interopRequireDefault(_Comments);
+	
+	var _VoteButtons = __webpack_require__(239);
+	
+	var _VoteButtons2 = _interopRequireDefault(_VoteButtons);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var SingleComment = _react2.default.createClass({
-		displayName: 'SingleComment',
+	var SinglePost = _react2.default.createClass({
+		displayName: 'SinglePost',
 		getInitialState: function getInitialState() {
-			return { comment: null };
+			return { post: null };
 		},
 		componentDidMount: function componentDidMount() {
 			var _this = this;
 	
 			_jquery2.default.ajax({
-				url: '/api/comment/' + this.props.params.id,
+				url: '/api/post/' + this.props.params.id,
 				type: 'GET',
 				success: function success(data) {
-					_this.setState({ comment: data });
-					console.log('this is data', data);
+					_this.setState({ post: data });
+					console.log('I am data: ', data);
 				}
 			});
 		},
 		render: function render() {
-			if (!this.state.comment) {
+			if (!this.state.post) {
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -36927,16 +36985,73 @@
 					_react2.default.createElement(
 						'center',
 						null,
-						this.state.comment
-					)
+						_react2.default.createElement(
+							'h1',
+							null,
+							this.state.post.title
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							this.state.post.body
+						)
+					),
+					_react2.default.createElement(_VoteButtons2.default, null),
+					_react2.default.createElement(_Comments2.default, null)
 				);
 			}
 		}
 	});
-	exports.default = SingleComment;
+	
+	exports.default = SinglePost;
 
 /***/ },
-/* 238 */
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Vote = _react2.default.createClass({
+	  displayName: "Vote",
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      voteCount: 0
+	    };
+	  },
+	  handleVote: function handleVote() {},
+	  render: function render() {
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(
+	        "button",
+	        { onClick: this.handleVote, value: "up" },
+	        "Thumbs up!"
+	      ),
+	      _react2.default.createElement(
+	        "button",
+	        { onClick: this.handleVote, value: "down" },
+	        "Thumbs down!"
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Vote;
+
+/***/ },
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37003,127 +37118,6 @@
 	});
 	
 	exports.default = PostForm;
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _jquery = __webpack_require__(234);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _reactRouter = __webpack_require__(178);
-	
-	var _VoteButtons = __webpack_require__(240);
-	
-	var _VoteButtons2 = _interopRequireDefault(_VoteButtons);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SinglePost = _react2.default.createClass({
-		displayName: 'SinglePost',
-		getInitialState: function getInitialState() {
-			return { post: null };
-		},
-		componentDidMount: function componentDidMount() {
-			var _this = this;
-	
-			_jquery2.default.ajax({
-				url: '/api/post/' + this.props.params.id,
-				type: 'GET',
-				success: function success(data) {
-					_this.setState({ post: data });
-					console.log('I am data: ', data);
-				}
-			});
-		},
-		render: function render() {
-			if (!this.state.post) {
-				return _react2.default.createElement(
-					'div',
-					null,
-					'Loading..'
-				);
-			} else {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'center',
-						null,
-						_react2.default.createElement(
-							'h1',
-							null,
-							this.state.post.title
-						),
-						_react2.default.createElement(
-							'p',
-							null,
-							this.state.post.body
-						)
-					),
-					_react2.default.createElement(_VoteButtons2.default, null)
-				);
-			}
-		}
-	});
-	
-	exports.default = SinglePost;
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Vote = _react2.default.createClass({
-	  displayName: "Vote",
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      voteCount: 0
-	    };
-	  },
-	  handleVote: function handleVote() {},
-	  render: function render() {
-	    return _react2.default.createElement(
-	      "div",
-	      null,
-	      _react2.default.createElement(
-	        "button",
-	        { onClick: this.handleVote, value: "up" },
-	        "Thumbs up!"
-	      ),
-	      _react2.default.createElement(
-	        "button",
-	        { onClick: this.handleVote, value: "down" },
-	        "Thumbs down!"
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = Vote;
 
 /***/ },
 /* 241 */

@@ -1,10 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
-import {Link} from 'react-router';
+import SinglePost from './SinglePost.jsx';
 
 const CommentForm = React.createClass({
 getInitialState(){
-	return({comment: '', postID:null})
+	return({comment: '', PostId: this.props.PostId})
 },
 commentChange(e){
 	return this.setState({comment:e.target.value})
@@ -17,6 +17,7 @@ createComment(){
 	})
 },
 	render(){
+		console.log(this.state.comment, ':comment');
 		return(
 		<div>
 			<center>
