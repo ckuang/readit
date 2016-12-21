@@ -11,11 +11,15 @@ import SingleComment from './components/SingleComment';
 import PostForm from './components/PostForm';
 import SinglePost from './components/SinglePost';
 
+import './main.css';
+
 const App = React.createClass({
     render: function() {
       return (
         <div>
-          <center>Home</center>
+          <div className="header">
+            <h1 className="appTitle">Readit</h1>
+          </div>
           {this.props.children}
         </div>
       )
@@ -35,4 +39,3 @@ ReactDOM.render(
   </Router>,
   document.getElementById('root')
 )
-

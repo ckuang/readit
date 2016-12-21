@@ -2,6 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router';
 
+import Vote from './VoteButtons';
+
 const SinglePost = React.createClass({
 getInitialState(){
 	return({post:null})
@@ -19,8 +21,15 @@ componentDidMount(){
 	render(){
 		if(!this.state.post){
 			return (<div>Loading..</div>)
-		}else{
-			return (<div><center>{this.state.post.title}{this.state.post.body}</center></div>)
+		}
+		else {
+			return (<div>
+								<center>
+									<h1>{this.state.post.title}</h1>
+									<p>{this.state.post.body}</p>
+								</center>
+								<Vote />
+							</div>)
 		}
 	}
 })
