@@ -1,46 +1,34 @@
-
-
 import React from 'react';
 import $ from 'jquery';
+import {Link} from 'react-router';
 
-//
 const CommentForm = React.createClass({
-
 getInitialState(){
-	//Get POST ID to be passed down 
-	return({comment: '', id: 2})
-}, 
-handleChange(e){
-	this.setState({comment:e.target.value});
+	return({comment: '', postID:null})
 },
-addComment(){
-	console.log(this.state, 'about to POST. what is this?')
+commentChange(e){
+	return this.setState({comment:e.target.value})
+},
+createComment(){
 	$.ajax({
 		url: '/api/comment',
-		type: 'POST',
-		data: this.state,
-		success:((data)=>{
-			console.log("data:", data);
-		})
+		type:'POST',
+		data:this.state
 	})
 },
 	render(){
-		console.log(this.state.comment, 'this is your text')
 		return(
-		<div>		
-		<center>
-			<h1> Make Your Comment Page:</h1>
+		<div>
+			<center>
+			<h1>Comment Form Page:</h1>
 
-			Leave a Comment:<br/>
-			<input type="text" value={this.state.comment} onChange={this.handleChange}></input>
-			<button onClick={this.addComment}>Add Comment</button>
-		</center>
+			Leave A Comment:<br/>
+			<input type="text" value={this.state.comment} onChange={this.commentChange}></input>
+			<button onClick={this.createComment}>Add Comment</button>
+			</center>
 		</div>
-
 		)
-	}	
+	}
 })
-//
-//
-//
-export default CommentForm; 
+
+export default CommentForm;

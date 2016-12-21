@@ -12,7 +12,7 @@ const Vote = require('./models/index.js').Vote
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json())
-app.use(express.static('public'))
+app.use(express.static(__dirname))
 
 
 // app.use(apiRouter)
@@ -27,6 +27,8 @@ app.get('/api/post',(req,res)=>{
 		res.send(error)
 	})
 })
+
+
 app.get('/api/comment',(req,res)=>{
 	Comment.findAll()
 	.then((data)=>{
@@ -38,7 +40,8 @@ app.get('/api/comment',(req,res)=>{
 })
 
 app.get('/api/comment/:id', (req,res)=>{
-	Comment.findById(req.params.id)
+  let id = req.params.id
+	Comment.findById(id)
 	.then((data)=>{
 		console.log(data, 'found this comment ID!')
 		res.send(data);
@@ -56,6 +59,17 @@ app.get('/api/vote',(req,res)=>{
 	}).catch((error)=>{
 		res.send(error)
 	})
+})
+
+app.get('/api/post/:id', (req,res)=>{
+  Post.findById(req.params.id)
+  .then((data)=>{
+    console.log("found this post!", data)
+    res.send(data);
+  })
+  .catch((error)=>{
+    console.log(error, 'Error!')
+  })
 })
 
 
@@ -136,10 +150,6 @@ app.post('/api/post', (req, res) => {
   })
 
 
-//
-//
-//
-//
 
 app.get('/*',(req, res)=>{
   res.sendFile(path.join(__dirname, '/views/index.html'))

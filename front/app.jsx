@@ -7,8 +7,9 @@ import {Route, Router, Link, browserHistory, IndexRoute} from 'react-router';
 import Posts from './components/Posts';
 import Comments from './components/Comments';
 import CommentForm from './components/CommentForm';
-import OneComment from './components/SingleComment';
+import SingleComment from './components/SingleComment';
 import PostForm from './components/PostForm';
+import SinglePost from './components/SinglePost';
 
 const App = React.createClass({
     render: function() {
@@ -27,8 +28,9 @@ ReactDOM.render(
       <IndexRoute component={Posts} />
       <Route path="comments" component={Comments}/>
       <Route path="commentsform" component={CommentForm}/>
-      <Route path="singlecomment" component={OneComment}/>
+      <Route path="singlecomment/:id" component={SingleComment}/>
       <Route path="postform" component={PostForm}/>
+      <Route path="singlepost/:id" component={SinglePost}/>
     </Route>
   </Router>,
   document.getElementById('root')

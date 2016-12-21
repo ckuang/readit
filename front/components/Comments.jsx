@@ -11,32 +11,24 @@ componentDidMount(){
 		url:'/api/comment',
 		type: 'GET',
 		success:((data)=>{
-			console.log(data, 'this is the data');
-			console.log(data.length, 'this is the length')
-			console.log(data[0].comment, 'this is the actual comment')
-			data ? this.setState({comments:data}) : console.log('Error with comment objects')
+		data ? this.setState({comments:data}) : console.log('Error with comment objects')
 		})
 	})
 },
 	render(){
 	let CommentDisplay = this.state.comments.map((value,index)=>{
-		return <li key={index}><p>{value.comment}</p></li>
+		return <Link key={index} to={'/singlecomment/' + value.id}><li key={index}><h1 key={index}>{value.comment}</h1></li></Link>
 	})
-
-	let length = this.state.comments.length
-		return(
-		<div>
-			<center>
-			<h1>ALL COMMENTS:</h1>
-			{CommentDisplay}
-			</center>
-		</div>
+	return(
+			<div>
+				<center>
+				<h1>ALL COMMENTS:</h1>
+				{CommentDisplay}
+				</center>
+			</div>
 		)
 	}
 })
-//
-//
-//
 
 export default Comments;
 
