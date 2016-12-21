@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router';
+import Comments from './Comments.jsx';
 
 const SinglePost = React.createClass({
 getInitialState(){
@@ -20,7 +21,7 @@ componentDidMount(){
 		if(!this.state.post){
 			return (<div>Loading..</div>)
 		}else{
-			return (<div><center>{this.state.post.title}{this.state.post.body}</center></div>)
+			return (<div><center>{this.state.post.title}{this.state.post.body}</center><Comments PostId={this.props.PostId}/></div>)
 		}
 	}
 })
