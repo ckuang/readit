@@ -1,34 +1,30 @@
 import React from 'react';
-import {ajax} from 'jquery';
+import $ from 'jquery';
+import {Link} from 'react-router';
 
 const Posts = React.createClass({
   getInitialState: function(){
-    return {
-      allPosts: []
-    }
+    return ({allPosts:[]})
   },
-  componentDidMount: function (){
-    var that = this;
-    ajax({
+  componentDidMount(){
+    $.ajax({
       url: '/api/post',
-      type: 'GET'
-    })
-    .then(function (response) {
-      that.setState({
-        allPosts: response
+      type: 'GET',
+      success:((data)=>{
+        data ? this.setState({allPosts:data}) : console.log('Error with post object')
       })
     })
   },
   render: function(){
+    let PostDisplay = this.state.allPosts.map((value,index)=>{
+      return <Link key={index} to={"/singlepost/" + value.id}><li key={index}><h1 key={index}>{value.body}</h1></li></Link>
+    })
     return (
       <div>
-        <ul>
-          {
-            this.state.allPosts.map(function(val, idx) {
-              return <li key={idx}>{val.title}</li>
-            })
-          }
-        </ul>
+      <center>
+        <h1> Post Page </h1>
+        {PostDisplay}
+        </center>
       </div>
     )
   }

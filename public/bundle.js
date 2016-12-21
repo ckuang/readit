@@ -60,8 +60,30 @@
 	
 	var _Posts2 = _interopRequireDefault(_Posts);
 	
+	var _Comments = __webpack_require__(235);
+	
+	var _Comments2 = _interopRequireDefault(_Comments);
+	
+	var _CommentForm = __webpack_require__(236);
+	
+	var _CommentForm2 = _interopRequireDefault(_CommentForm);
+	
+	var _SingleComment = __webpack_require__(237);
+	
+	var _SingleComment2 = _interopRequireDefault(_SingleComment);
+	
+	var _PostForm = __webpack_require__(238);
+	
+	var _PostForm2 = _interopRequireDefault(_PostForm);
+	
+	var _SinglePost = __webpack_require__(239);
+	
+	var _SinglePost2 = _interopRequireDefault(_SinglePost);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	// components
+	//
 	var App = _react2.default.createClass({
 	  displayName: 'App',
 	
@@ -69,14 +91,15 @@
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      'Hello',
+	      _react2.default.createElement(
+	        'center',
+	        null,
+	        'Home'
+	      ),
 	      this.props.children
 	    );
 	  }
 	});
-	
-	// components
-	
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
@@ -84,7 +107,12 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: App },
-	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Posts2.default })
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Posts2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'comments', component: _Comments2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'commentsform', component: _CommentForm2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'singlecomment/:id', component: _SingleComment2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'postform', component: _PostForm2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'singlepost/:id', component: _SinglePost2.default })
 	  )
 	), document.getElementById('root'));
 
@@ -26416,41 +26444,58 @@
 	
 	var _jquery = __webpack_require__(234);
 	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _reactRouter = __webpack_require__(178);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Posts = _react2.default.createClass({
 	  displayName: 'Posts',
 	
 	  getInitialState: function getInitialState() {
-	    return {
-	      allPosts: []
-	    };
+	    return { allPosts: [] };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var that = this;
-	    (0, _jquery.ajax)({
+	    var _this = this;
+	
+	    _jquery2.default.ajax({
 	      url: '/api/post',
-	      type: 'GET'
-	    }).then(function (response) {
-	      that.setState({
-	        allPosts: response
-	      });
+	      type: 'GET',
+	      success: function success(data) {
+	        data ? _this.setState({ allPosts: data }) : console.log('Error with post object');
+	      }
 	    });
 	  },
+	
 	  render: function render() {
+	    var PostDisplay = this.state.allPosts.map(function (value, index) {
+	      return _react2.default.createElement(
+	        _reactRouter.Link,
+	        { key: index, to: "/singlepost/" + value.id },
+	        _react2.default.createElement(
+	          'li',
+	          { key: index },
+	          _react2.default.createElement(
+	            'h1',
+	            { key: index },
+	            value.body
+	          )
+	        )
+	      );
+	    });
 	    return _react2.default.createElement(
 	      'div',
 	      null,
 	      _react2.default.createElement(
-	        'ul',
+	        'center',
 	        null,
-	        this.state.allPosts.map(function (val, idx) {
-	          return _react2.default.createElement(
-	            'li',
-	            { key: idx },
-	            val.title
-	          );
-	        })
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          ' Post Page '
+	        ),
+	        PostDisplay
 	      )
 	    );
 	  }
@@ -36683,6 +36728,336 @@
 	return jQuery;
 	} );
 
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _jquery = __webpack_require__(234);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// import commentForm from './CommentForm.jsx';
+	//
+	var Comments = _react2.default.createClass({
+		displayName: 'Comments',
+		getInitialState: function getInitialState() {
+			return { comments: [] };
+		},
+		componentDidMount: function componentDidMount() {
+			var _this = this;
+	
+			_jquery2.default.ajax({
+				url: '/api/comment',
+				type: 'GET',
+				success: function success(data) {
+					data ? _this.setState({ comments: data }) : console.log('Error with comment objects');
+				}
+			});
+		},
+		render: function render() {
+			var CommentDisplay = this.state.comments.map(function (value, index) {
+				return _react2.default.createElement(
+					Link,
+					{ key: index, to: '/singlecomment/' + value.id },
+					_react2.default.createElement(
+						'li',
+						{ key: index },
+						_react2.default.createElement(
+							'h1',
+							{ key: index },
+							value.comment
+						)
+					)
+				);
+			});
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'center',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						'ALL COMMENTS:'
+					),
+					CommentDisplay
+				)
+			);
+		}
+	});
+	
+	exports.default = Comments;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _jquery = __webpack_require__(234);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _reactRouter = __webpack_require__(178);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CommentForm = _react2.default.createClass({
+		displayName: 'CommentForm',
+		getInitialState: function getInitialState() {
+			return { comment: '', postID: null };
+		},
+		commentChange: function commentChange(e) {
+			return this.setState({ comment: e.target.value });
+		},
+		createComment: function createComment() {
+			_jquery2.default.ajax({
+				url: '/api/comment',
+				type: 'POST',
+				data: this.state
+			});
+		},
+		render: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'center',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						'Comment Form Page:'
+					),
+					'Leave A Comment:',
+					_react2.default.createElement('br', null),
+					_react2.default.createElement('input', { type: 'text', value: this.state.comment, onChange: this.commentChange }),
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.createComment },
+						'Add Comment'
+					)
+				)
+			);
+		}
+	});
+	
+	exports.default = CommentForm;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _jquery = __webpack_require__(234);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _reactRouter = __webpack_require__(178);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SingleComment = _react2.default.createClass({
+		displayName: 'SingleComment',
+		getInitialState: function getInitialState() {
+			return { comment: null };
+		},
+		componentDidMount: function componentDidMount() {
+			var _this = this;
+	
+			_jquery2.default.ajax({
+				url: '/api/comment/' + this.props.params.id,
+				type: 'GET',
+				success: function success(data) {
+					_this.setState({ comment: data });
+					console.log('this is data', data);
+				}
+			});
+		},
+		render: function render() {
+			if (!this.state.comment) {
+				return _react2.default.createElement(
+					'div',
+					null,
+					'Loading..'
+				);
+			} else {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'center',
+						null,
+						this.state.comment
+					)
+				);
+			}
+		}
+	});
+	exports.default = SingleComment;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _jquery = __webpack_require__(234);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var PostForm = _react2.default.createClass({
+		displayName: 'PostForm',
+		getInitialState: function getInitialState() {
+			return { title: '', body: '' };
+		},
+		titleChange: function titleChange(e) {
+			return this.setState({ title: e.target.value });
+		},
+		bodyChange: function bodyChange(e) {
+			return this.setState({ body: e.target.value });
+		},
+		createPost: function createPost() {
+			_jquery2.default.ajax({
+				url: '/api/post',
+				type: 'POST',
+				data: this.state
+			});
+			console.log(this.state, 'state');
+		},
+		render: function render() {
+			console.log(this.state.title, 'title');
+			console.log(this.state.body, 'body');
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'center',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						' Create a post page: '
+					),
+					'Create A Post: ',
+					_react2.default.createElement('br', null),
+					_react2.default.createElement('input', { type: 'text', value: this.state.title, onChange: this.titleChange }),
+					_react2.default.createElement('input', { type: 'text', value: this.state.body, onChange: this.bodyChange }),
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.createPost },
+						'Add Post'
+					)
+				)
+			);
+		}
+	});
+	
+	exports.default = PostForm;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _jquery = __webpack_require__(234);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _reactRouter = __webpack_require__(178);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SinglePost = _react2.default.createClass({
+		displayName: 'SinglePost',
+		getInitialState: function getInitialState() {
+			return { post: null };
+		},
+		componentDidMount: function componentDidMount() {
+			var _this = this;
+	
+			_jquery2.default.ajax({
+				url: '/api/post/' + this.props.params.id,
+				type: 'GET',
+				success: function success(data) {
+					_this.setState({ post: data });
+					console.log('I am data: ', data);
+				}
+			});
+		},
+		render: function render() {
+			if (!this.state.post) {
+				return _react2.default.createElement(
+					'div',
+					null,
+					'Loading..'
+				);
+			} else {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'center',
+						null,
+						this.state.post.title,
+						this.state.post.body
+					)
+				);
+			}
+		}
+	});
+	
+	exports.default = SinglePost;
 
 /***/ }
 /******/ ]);
