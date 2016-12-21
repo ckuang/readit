@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  /*background-color: skyblue;*/
+  height: 100vh;
+  width: auto;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  align-content: space-around;
+  background-color: skyblue;
+}
+
+.navbar > li {
+  margin: 10px;
+  list-style: none;
+  a:decoration: none;
+}
+
+#title {
+  width: 500px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+#body {
+  height: 500px;
+  width: 500px;
+  margin-left: 20px;
+}
+
+#reset {
+  margin-left: 20px;
+}
+
+#submit {
+  margin-left: 20px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.posts {
+  font-size: 36px;
+}
+
+.posts > * {
+  list-style: none;
+  padding: 10px;
+}
