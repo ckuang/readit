@@ -26478,6 +26478,7 @@
 	
 	  render: function render() {
 	    console.log(this.state.allPosts, 'what is this?');
+	    debugger;
 	    var PostDisplay = this.state.allPosts.map(function (value, index) {
 	      return _react2.default.createElement(
 	        _reactRouter.Link,
@@ -36786,18 +36787,14 @@
 				'div',
 				null,
 				_react2.default.createElement(
-					'center',
+					'h1',
 					null,
-					_react2.default.createElement(
-						'h1',
-						null,
-						'ALL COMMENTS:'
-					),
-					this.state.comments.map(function (value, index) {
-						console.log(value.PostId, 'value post id');
-						return _react2.default.createElement(_SingleComment2.default, { comments: value, key: index });
-					})
-				)
+					'ALL COMMENTS:'
+				),
+				this.state.comments.map(function (value, index) {
+					console.log(value.PostId, 'value post id');
+					return _react2.default.createElement(_SingleComment2.default, { comments: value, key: index });
+				})
 			);
 		}
 	});
@@ -36981,7 +36978,7 @@
 			} else {
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'singlePost' },
 					_react2.default.createElement(
 						'center',
 						null,
@@ -37033,15 +37030,15 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      "div",
-	      null,
+	      { className: "voteDiv" },
 	      _react2.default.createElement(
 	        "button",
-	        { onClick: this.handleVote, value: "up" },
+	        { className: "upVote", onClick: this.handleVote, value: "up" },
 	        "Thumbs up!"
 	      ),
 	      _react2.default.createElement(
 	        "button",
-	        { onClick: this.handleVote, value: "down" },
+	        { className: "downVote", onClick: this.handleVote, value: "down" },
 	        "Thumbs down!"
 	      )
 	    );
@@ -37154,7 +37151,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/*.appTitle {\n\n}*/\n\nbody, html {\n  margin: 0;\n  padding: 0;\n  font-family: 'Source Sans Pro', sans-serif;\n}\n\nh1 {\n  font-weight: 300;\n}\n\n.header {\n  display: flex;\n  justify-content: center;\n  font-size: 2em;\n  font-family: 'Lobster Two', cursive;\n}\n\n.posts {\n  text-decoration: none;\n  font-weight: 300;\n}\n\n.posts li {\n  list-style: none;\n  color: black;\n  transition-duration: .3s;\n  margin-bottom: 50px;\n}\n\n.posts li:hover {\n  color: firebrick;\n}\n", ""]);
+	exports.push([module.id, "/*.appTitle {\n\n}*/\n\nbody, html {\n  margin: 0;\n  padding: 0;\n  font-family: 'Source Sans Pro', sans-serif;\n}\n\nh1 {\n  font-weight: 300;\n}\n\n.header {\n  display: flex;\n  justify-content: center;\n  font-size: 2em;\n  font-family: 'Lobster Two', cursive;\n}\n\n.posts {\n  text-decoration: none;\n  font-weight: 300;\n}\n\n.posts li {\n  list-style: none;\n  color: black;\n  transition-duration: .3s;\n  margin-bottom: 50px;\n}\n\n.posts li:hover {\n  color: firebrick;\n}\n\n.singlePost {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.voteDiv {\n  margin-top: 30px;\n  margin-bottom: 30px;\n  width: 300px;\n  /*background-color: blue;*/\n  display: flex;\n  justify-content: space-around;\n}\n\n\nbutton {\n  padding: 10px;\n  border: none;\n  color: white;\n  font-size: .9em;\n  font-weight: 400;\n  width: 130px;\n  border-radius: 5px;\n}\n\n.upVote {\n  background-color: rgb(74, 148, 48);\n}\n\n.downVote {\n  background-color: rgb(148, 48, 48);\n}\n", ""]);
 	
 	// exports
 

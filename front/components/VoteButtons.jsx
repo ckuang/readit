@@ -11,9 +11,9 @@ const Vote = React.createClass({
   },
   render: function(){
     return (
-      <div>
-          <button onClick={this.handleVote} value="up">Thumbs up!</button>
-          <button onClick={this.handleVote} value="down">Thumbs down!</button>
+      <div className="voteDiv">
+          <button className="upVote" onClick={this.handleVote} value="up">Thumbs up!</button>
+          <button className="downVote" onClick={this.handleVote} value="down">Thumbs down!</button>
       </div>
     )
   }

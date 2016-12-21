@@ -5,7 +5,7 @@ import SingleComment from './SingleComment.jsx';
 const Comments  = React.createClass({
 getInitialState(){
 	return({comments: []})
-}, 
+},
 componentDidMount(){
 	$.ajax({
 		url:'/api/comment',
@@ -21,19 +21,15 @@ componentDidMount(){
 
 	return(
 			<div>
-				<center>
 				<h1>ALL COMMENTS:</h1>
 				 {
 				 this.state.comments.map((value,index)=>{
 				 	console.log(value.PostId, 'value post id')
 				return <SingleComment comments={value} key={index}/>})
 				 }
-				</center>
 			</div>
 		)
 	}
 })
 
 export default Comments;
-
-
