@@ -1,8 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router';
-import Comments from './Comments.jsx';
 
+import Comments from './Comments';
 import Vote from './VoteButtons';
 
 const SinglePost = React.createClass({
@@ -25,14 +25,15 @@ componentDidMount(){
 
 		}
 		else {
-			return (<div>
-								<center>
-									<h1>{this.state.post.title}</h1>
-									<p>{this.state.post.body}</p>
-								</center>
-								<Vote />
-								<Comments/>
-							</div>)
+			return (
+				<div className="singlePost">
+					<center>
+						<h1>{this.state.post.title}</h1>
+						<p>{this.state.post.body}</p>
+					</center>
+					<Vote />
+					<Comments/>
+				</div>)
 
 		}
 	}
