@@ -20,8 +20,6 @@ createPost(){
 	})
 },
 	render(){
-		console.log(this.state.title, 'title');
-		console.log(this.state.body, 'body');
 		return(
 		<div>
 			<center>
