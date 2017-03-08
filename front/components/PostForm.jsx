@@ -18,7 +18,6 @@ createPost(){
 		type:'POST',
 		data: this.state
 	})
-	console.log(this.state, 'state')
 },
 	render(){
 		console.log(this.state.title, 'title');
